@@ -1,0 +1,21 @@
+.employee_body{
+    width: 100%;
+    height: 100vh;
+    background-image: url(https://images.unsplash.com/photo-1634149858423-7af1d69e9278?q=80&w=1776&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.maintext_container{
+    font-size: 70px;
+    color: white;
+    font-weight: bold;
+}
+.em_bttn2{
+    width: 110px;
+    background-color: rgb(71, 153, 235);
+    border: 1px solid rgb(71, 153, 235);
+    font-weight: bolder;
+    color: #c0eafa;
+    border-radius: 15px;
+  }
