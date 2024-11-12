@@ -19,6 +19,9 @@ import UpdateUser from './Componet/Updateuser/UpdateUser';
 import './Componet/Updateuser/UpdateUser.css'
 import Reset from './Componet/Reset/Reset';
 import './Componet/Reset/Reset.css'
+import ForgetPassword from './Componet/ForgertPassword/ForgetPassword';
+import './Componet/ForgertPassword/ForgetPassword.css'
+import ForgetReset from './Componet/Reset/ForgetRepassword';
 
 function App() {
   return (
@@ -34,6 +37,8 @@ function App() {
           <Route path={'/SingleEmpView'} exact element={<SingleEmpView />} />
           <Route path={'/UpdateUser'} exact element={<UpdateUser />} />
           <Route path={'/Reset'} exact element={<Reset />} />
+          <Route path={'/ForgetPassword'} exact element={<ForgetPassword />} />
+          <Route path={'/ForgetReset'} exact element={<ForgetReset />} />
 
         </Routes>
       </Router>

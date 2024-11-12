@@ -23,7 +23,7 @@ h1{
     padding: 0px 0px 500px 390px ;
     text-align: center;
 }
-form{
+.Reset_form{
     border: 5px double rgb(72, 72, 72);
     border-radius:20px ;
 }

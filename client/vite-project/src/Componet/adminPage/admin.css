@@ -8,7 +8,7 @@
   }
 
   .admin_container{
-    width: 100vw;
+    /* width: 100vw; */
     height: 100vh;
   }
   .ad_bttn2{
@@ -43,7 +43,7 @@
   }
   .user{
       width: 100%;
-      padding: 50px;
+      padding: 50px 40px 50px 50px ;
       background-color: rgb(197, 188, 244);
   }
   .nav{

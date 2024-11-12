@@ -1,19 +1,18 @@
 
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { Offcanvas } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Admin() {
     const [userData, setUserData] = useState([]);
+    const [showOffcanvas, setShowOffcanvas] = useState(false); // For managing the offcanvas visibility
     const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchData() {
             let params = new URLSearchParams(window.location.search);
-            console.log("params", params);
-
             let token_key = params.get("login");
-            console.log("token_key", token_key);
-
             let token = localStorage.getItem(token_key);
 
             try {
@@ -24,23 +23,13 @@ function Admin() {
                     }
                 });
 
-                console.log("Full Response:", response);
-
-                // Check if the response is JSON
                 if (!response.ok) {
                     console.error("Error: ", response.status, response.statusText);
                     return;
                 }
 
                 let parsed_Response = await response.json();
-                console.log("parsed_Response", parsed_Response);
-
                 let data = parsed_Response.data;
-                console.log("data", data);
-
-
-
-                // Update the userData state with the fetched data
                 setUserData(data);
 
             } catch (error) {
@@ -51,79 +40,45 @@ function Admin() {
         fetchData();
     }, []);
 
-
     const add = async () => {
-        try {
-            // Extract token_key from URL
-            let params = new URLSearchParams(window.location.search);
-            let token_key = params.get("login");
-
-
-            // Get token from localStorage using the key
-            let token = localStorage.getItem(token_key);
-            if (!token) {
-                console.error("Token not found in localStorage.");
-                return;
-            }
-
-
-            // Navigate to AddEmployee page with token and id as query parameters
-            navigate(`/AddEmployee?login=${token_key}`);
-        } catch (error) {
-            console.error("Error in add function:", error);
+        let params = new URLSearchParams(window.location.search);
+        let token_key = params.get("login");
+        let token = localStorage.getItem(token_key);
+        if (!token) {
+            console.error("Token not found in localStorage.");
+            return;
         }
+        navigate(`/AddEmployee?login=${token_key}`);
     };
 
     const logout = () => {
-        console.log("Logout function triggered");
         let params = new URLSearchParams(window.location.search);
         let token_key = params.get('login');
         let token = localStorage.getItem(token_key);
-        console.log("Token:", token);
-
-
         if (token) {
-            localStorage.removeItem(token_key);  // Remove the token
+            localStorage.removeItem(token_key);
             navigate(`/Login`);
-        } else {
-            console.log("No token found");
         }
     };
 
     const singleData = async (id) => {
         let params = new URLSearchParams(window.location.search);
-        console.log('params', params);
-
         let token_key = params.get('login');
-        console.log("token_key", token_key);
-
-        // let id = params.get('id');
-        // console.log("id", id);
-
-        let token = localStorage.getItem(token_key)
-        navigate(`/SingleEmpView?login=${token_key}&id=${id}`)
+        let token = localStorage.getItem(token_key);
+        navigate(`/SingleEmpView?login=${token_key}&id=${id}`);
     };
 
     const updateData = async (id) => {
         let params = new URLSearchParams(window.location.search);
-        console.log('params', params);
-
-        let token_key = params.get('login');
-        console.log("token_key", token_key);
-
-        // let id = params.get('id');
-        // console.log("id", id);
-
-        let token = localStorage.getItem(token_key)
-        navigate(`/UpdateUser?login=${token_key}&id=${id}`)
-    };
-    const deleteData = async (id) => {
-
-        let params = new URLSearchParams(window.location.search)
         let token_key = params.get('login');
         let token = localStorage.getItem(token_key);
+        navigate(`/UpdateUser?login=${token_key}&id=${id}`);
+    };
 
-        console.log("reached......")
+    const deleteData = async (id) => {
+        let params = new URLSearchParams(window.location.search);
+        let token_key = params.get('login');
+        let token = localStorage.getItem(token_key);
 
         try {
             let response = await fetch(`http://localhost:3000/userDelete/${id}`, {
@@ -132,20 +87,21 @@ function Admin() {
                     'Authorization': `Bearer ${token}`
                 }
             });
-            console.log("response :", response)
 
             if (response.status === 200) {
                 alert("Employee successfully deleted ");
-                navigator(`/Admin?login=${token_key}`)
-
+                window.location.reload();
             } else {
                 alert("Something went wrong ");
             }
         } catch (error) {
             console.log("error", error);
         }
-    }
-    // deleteData()
+    };
+
+    // Offcanvas Handlers
+    const handleClose = () => setShowOffcanvas(false);
+    const handleShow = () => setShowOffcanvas(true);
 
     return (
         <>
@@ -164,22 +120,22 @@ function Admin() {
                         </div>
                         <div>
                             <span className="px-4">
-                                <a className=" text-decoration-none text-white fs-6" href="/admin">
+                                <a className="text-decoration-none text-white fs-6" href="/admin">
                                     Home
                                 </a>
                             </span>
                             <span className="px-4">
-                                <a className=" text-decoration-none text-white fs-6" href="">
+                                <a className="text-decoration-none text-white fs-6" href="">
                                     File
                                 </a>
                             </span>
                             <span className="px-4">
-                                <a className=" text-decoration-none text-white fs-6" href="">
+                                <a className="text-decoration-none text-white fs-6" href="">
                                     About
                                 </a>
                             </span>
                             <span className="px-4">
-                                <a className=" text-decoration-none text-white fs-6" href="">
+                                <a className="text-decoration-none text-white fs-6" href="">
                                     Contact
                                 </a>
                             </span>
@@ -201,6 +157,8 @@ function Admin() {
                                 src="https://img.icons8.com/?size=100&id=492ILERveW8G&format=png&color=000000"
                                 style={{ width: 60, height: 60 }}
                                 alt=""
+                                onClick={handleShow} // This triggers the offcanvas
+                                role="button"
                             />
                         </div>
                         <div className="text-center pt-5">
@@ -233,7 +191,6 @@ function Admin() {
                             <thead>
                                 <tr className="table-head">
                                     <th>Photos</th>
-                                    {/* <th>ID</th> */}
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
@@ -247,10 +204,7 @@ function Admin() {
                                     userData.map((user) => (
                                         <tr key={user._id}>
                                             <td className="hov">
-                                           
                                                 {user.image ? (
-                                                   
-
                                                     <img
                                                         src={user.image}
                                                         style={{ width: 20, height: 20 }}
@@ -262,11 +216,8 @@ function Admin() {
                                                         style={{ width: 20, height: 20 }}
                                                         alt="Fallback User"
                                                     />
-                                                    
                                                 )}
                                             </td>
-
-                                            {/* <td className="hov">{user._id}</td> */}
                                             <td className="hov">{user.name}</td>
                                             <td className="hov">{user.email}</td>
                                             <td className="hov">{user.phoneno}</td>
@@ -305,6 +256,31 @@ function Admin() {
                         </table>
                     </div>
                 </div>
+
+                {/* Bootstrap Offcanvas */}
+                <Offcanvas show={showOffcanvas} onHide={handleClose}>
+                    <Offcanvas.Header closeButton>
+                        <Offcanvas.Title> <img
+                            src="https://img.icons8.com/?size=100&id=oROcPah5ues6&format=png&color=000000"
+                            style={{ width: 70, height: 70, zIndex: 1 }}
+                            alt=""
+                        />UMS</Offcanvas.Title>
+                    </Offcanvas.Header>
+                    <Offcanvas.Body>
+                        {/* <h5>Logged In User Details</h5> */}
+                        {userData && userData.length > 0 ? (
+                            <div>
+                                <p><strong>Name:</strong> {userData[0].name}</p>
+                                <p><strong>Email:</strong> {userData[0].email}</p>
+                                <p><strong>Phone:</strong> {userData[0].phoneno}</p>
+                                {/* Add more fields if needed */}
+                            </div>
+                        ) : (
+                            <p>No user details available.</p>
+                        )}
+                    </Offcanvas.Body>
+
+                </Offcanvas>
             </div>
         </>
     );

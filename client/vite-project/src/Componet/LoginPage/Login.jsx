@@ -56,7 +56,7 @@ function Login() {
             localStorage.setItem(loginCountKey, 1);
             alert("This is your first login. Please reset your password.");
             
-            window.location = `resetpassword.html?login=${token_key}&id=${id}`;
+            navigate(`/Reset?login=${token_key}&id=${id}`) ;
             return; // Stop further execution after redirection
         } else {
             // Increment login count
@@ -84,7 +84,7 @@ function Login() {
   };
 
   const forgotPassword = () => {
-    // Handle forgot password functionality
+    navigate(`/ForgetPassword`);
   };
 
   return (

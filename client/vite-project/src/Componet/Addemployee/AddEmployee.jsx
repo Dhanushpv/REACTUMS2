@@ -1,7 +1,9 @@
 
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function AddEmployee() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [phoneno, setPhoneno] = useState('');
@@ -26,22 +28,25 @@ function AddEmployee() {
         usertypeSelection();
     }, []);
 
-    // Handle form submission
+
+
     const addEmployee = async (event) => {
         event.preventDefault();
         console.log("Form submission reached...");
+    
 
+    
         // Get the token from URL parameters
         let params = new URLSearchParams(window.location.search);
         let token_key = params.get('login');
         let token = localStorage.getItem(token_key);
-
+    
         // Convert image to Base64 if an image is selected
         if (image) {
             const reader = new FileReader();
             reader.onloadend = async () => {
                 const base64ImageString = reader.result;
-
+    
                 // Prepare the data to be sent
                 const data = {
                     name,
@@ -50,7 +55,7 @@ function AddEmployee() {
                     user_type: userType,
                     image: base64ImageString
                 };
-
+    
                 try {
                     let response = await fetch('http://localhost:3000/user', {
                         method: 'POST',
@@ -60,24 +65,25 @@ function AddEmployee() {
                         },
                         body: JSON.stringify(data),
                     });
-
+    
                     if (response.status === 200) {
                         alert('Employee successfully added');
-                        window.location = `admin.html?login=${token_key}`;
+                        navigate(`/Admin?login=${token_key}`); // Navigate after successful response
                     } else {
                         alert('Something went wrong');
                     }
-
+    
                 } catch (error) {
                     console.log("Error:", error);
                 }
             };
-
+    
             reader.readAsDataURL(image);
         } else {
             alert("Please select an image.");
         }
     };
+    
 
     return (
         <div className="AddEmployee_container">
