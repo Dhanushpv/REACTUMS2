@@ -4,6 +4,12 @@ import { useNavigate } from 'react-router-dom';
 function ForgetReset() {
     const [password, setPassword] = useState(''); // State to store the new password
     const navigate = useNavigate();
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setIsPasswordVisible(!isPasswordVisible);
+      };
+    
 
     const forgetRepassword = async (event) => {
         event.preventDefault();
@@ -11,17 +17,13 @@ function ForgetReset() {
 
         let params = new URLSearchParams(window.location.search);
         console.log("params", params);
-        let token_key = params.get('login');
+        let token_key = params.get('token');
         console.log("token_key", token_key);
-        let token = localStorage.getItem(token_key);
-        console.log("token", token);
-        let id = params.get('id');
-        console.log("id", id);
 
-        if (!token) {
-            console.error("No token found in localStorage");
-            return;
-        }
+        // if (!token) {
+        //     console.error("No token found in localStorage");
+        //     return;
+        // }
 
         const data = { password };
         const strdata = JSON.stringify(data);
@@ -31,7 +33,7 @@ function ForgetReset() {
             let response = await fetch(`http://localhost:3000/forgotresetPassword`, {
                 method: 'PATCH',
                 headers: {
-                    'Authorization': `Bearer ${token}`,
+                    'Authorization': `Bearer ${token_key}`,
                     'Content-Type': 'application/json'
                 },
                 body: strdata
@@ -61,7 +63,7 @@ function ForgetReset() {
                         <div className="reset_container position-absolute top-50 start-50 translate-middle">
                             <form onSubmit={forgetRepassword} className="Reset_form">
                                 <div className="reset_insidecontainer text-center">
-                                    <div className="d-flex">
+                                    {/* <div className="d-flex">
                                         <div>
                                             <label htmlFor="password">New password: </label>
                                         </div>
@@ -72,6 +74,32 @@ function ForgetReset() {
                                                 id="password"
                                                 value={password}
                                                 onChange={(e) => setPassword(e.target.value)}
+                                            />
+                                        </div>
+                                    </div> */}
+
+                                    <div className="pt-5">
+                                        <div style={{ position: 'relative' }}>
+                                            {/* <i
+                                                className="fa fa-lock px-2 pt-1 text-center position-absolute"
+                                                style={{ fontSize: 25, color: 'whitesmoke', margin: 5 }}
+                                            /> */}
+                                            <input
+                                                type={isPasswordVisible ? 'text' : 'password'} // Toggle input type
+                                                className="p-2 current"
+                                                name="password"
+                                                style={{ textAlign: 'center' }}
+                                                placeholder="Password"
+                                                id="password"
+                                                value={password}
+                                                onChange={(e) => setPassword(e.target.value)}
+                                                required
+                                            />
+                                            {/* Eye icon for toggling visibility */}
+                                            <i
+                                                onClick={togglePasswordVisibility}
+                                                className={`fa ${isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'} position-absolute`}
+                                                style={{ top: '50%', right: 50, cursor: 'pointer', transform: 'translateY(-50%)', fontSize: 25, color: 'black' }}
                                             />
                                         </div>
                                     </div>

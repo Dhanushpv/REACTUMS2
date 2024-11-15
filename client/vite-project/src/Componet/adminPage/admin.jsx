@@ -22,6 +22,7 @@ function Admin() {
                         'Authorization': `Bearer ${token}`
                     }
                 });
+                console.log(response)
 
                 if (!response.ok) {
                     console.error("Error: ", response.status, response.statusText);
@@ -30,6 +31,7 @@ function Admin() {
 
                 let parsed_Response = await response.json();
                 let data = parsed_Response.data;
+                console.log(data)
                 setUserData(data);
 
             } catch (error) {
@@ -153,37 +155,47 @@ function Admin() {
                 <div className="d-flex">
                     <div className="blanck">
                         <div className="text-center pt-5">
-                            <img
-                                src="https://img.icons8.com/?size=100&id=492ILERveW8G&format=png&color=000000"
-                                style={{ width: 60, height: 60 }}
-                                alt=""
-                                onClick={handleShow} // This triggers the offcanvas
+                            <span
+                                className="fw-bolder fs-2 text-white"
+                                onClick={handleShow}
                                 role="button"
-                            />
+                                style={{fontFamily: 'Philosopher, sans-serif'}}
+                            >
+                                Admin
+                            </span>
                         </div>
+
                         <div className="text-center pt-5">
-                            <img
+                            
+
+                            <span
+                                className="fw-bolder fs-2 text-white"
                                 onClick={add}
-                                src="https://img.icons8.com/?size=100&id=44535&format=png&color=000000"
-                                style={{ width: 60, height: 60 }}
-                                alt=""
-                            />
-                            <br />
+
+                                style={{ fontFamily: 'Philosopher, sans-serif' }}
+                            >
+                                AddUser
+                            </span>
+
+
                         </div>
-                        <div className="text-center pt-5">
+                        {/* <div className="text-center pt-5">
                             <img
                                 src="https://img.icons8.com/?size=100&id=21103&format=png&color=000000"
                                 style={{ width: 60, height: 60 }}
                                 alt=""
                             />
-                        </div>
+                        </div> */}
                         <div className="text-center pt-5">
-                            <img
+                          
+                             <span
+                                className="fw-bolder fs-2 text-white"
                                 onClick={logout}
-                                src="https://img.icons8.com/?size=100&id=vcvBMGD6n6ZL&format=png&color=FFFFFF"
-                                style={{ width: 60, height: 60 }}
-                                alt=""
-                            />
+
+                                style={{ fontFamily: 'Philosopher, sans-serif' }}
+                            >
+                                LogOut
+                            </span>
                         </div>
                     </div>
                     <div className="user">
@@ -203,13 +215,14 @@ function Admin() {
                                 {userData.length > 0 ? (
                                     userData.map((user) => (
                                         <tr key={user._id}>
-                                            <td className="hov">
+                                            <td className="hov text-center">
                                                 {user.image ? (
                                                     <img
-                                                        src={user.image}
-                                                        style={{ width: 20, height: 20 }}
+                                                        src={`http://localhost:3000/${user.image}`} // Use template literals with ${}
+                                                        style={{ width: 50, height: 50 }}
                                                         alt="User"
                                                     />
+
                                                 ) : (
                                                     <img
                                                         src="" // Fallback image

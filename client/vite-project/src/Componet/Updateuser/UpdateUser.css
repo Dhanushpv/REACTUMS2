@@ -1,21 +1,42 @@
-*{
-    margin: 0px;
-    padding: 0px;
+.updateMaincontainer{
+  width: 100vw;
+  height: 100vh;
 }
-/* body{
-    background-color: rgb(57, 44, 122);
-} */
-.login{
-    background-color: rgb(166, 151, 240);
-};
+
+.update_nav{
+  background-color: #04040484;
+}
+.UpdateContainer2{
+  width: 40vw;
+  height: 80vh;
+  /* background-color: rgb(166, 151, 240); */
+  /* padding: 100px; */
+  margin: auto;
+
+}
+
+.UpdateContainer1{
+  width: 40vw;
+  height: 80vh;
+  background-color: rgb(166, 151, 240); 
+
+  margin: auto;
 
 
+}
+.UpdateFormContainer {
+  padding: 50px 50px 50px 50px;
+  width: 43vw;
 
-  .frame {
+}
+
+
+  /* .frame {
     width: 90%;
+    /* height: 100vh; 
     margin: 40px auto;
     text-align: center;
-  }
+  } */
 
   .custom-btn {
     width: 130px;
@@ -85,9 +106,4 @@
     display: flex;
     justify-content: left;
     align-items: start;
-}
-.login{
-    margin: 0px 10px 10px 10px;
-    width: 765px;
-    height: 700px;
 }

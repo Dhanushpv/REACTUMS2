@@ -4,7 +4,7 @@
   }
 
   .admin_nav{
-    background-color: rgb(57,44,122);
+    background-color:#393E46;
   }
 
   .admin_container{
@@ -28,31 +28,32 @@
       /* border: 1px solid black;
   } */
   th, td {
-      padding: 20px;
+      padding: 7px;
       /* border-radius: 20px; */
       /* text-align: left; */
   }
   tr:hover{
-      background-color: rgb(197, 188, 244);
+      background-color: #eeeeeeee;
       /* font-weight: 900; */
   }
   .blanck{
       width: 20%;
-      background-color: rgb(97, 81, 191);
+      background-color: #45474d;
       color: beige;
+      /* height: 100vh; */
   }
   .user{
       width: 100%;
       padding: 50px 40px 50px 50px ;
-      background-color: rgb(197, 188, 244);
+      background-color: #929AAB
   }
-  .nav{
-      background-color: rgb(57, 44, 122);
-      color:  rgb(166, 151, 240);
-  }
+  /* .nav{
+      background-color: #393E46;
+      color:  rgb(0, 0, 0);
+  } */
   .table-head{
-      background-color: rgb(57, 44, 122);
-      color:  rgb(166, 151, 240);
+    background-color: #393E46;
+    color:  #EEEEEE;
   }
   /* button */
   
@@ -81,7 +82,7 @@
     .custom-btn {
       width: 130px;
       height: 40px;
-      color: #000000;
+      color: #f8f8f8;
       border-radius: 5px;
       padding: 10px 25px;
       font-family: 'Lato', sans-serif;
@@ -100,8 +101,10 @@
     .adbtn-16 {
       border: none;
       color: #ffffff;
+      border-radius: 20px;
+      width: 100px;
     }
-    /* .btn-16:after {
+    .btn-16:after {
       position: absolute;
       content: "";
       width: 0;
@@ -127,4 +130,4 @@
     }
     .btn-16:active {
       top: 2px;
-    } */
+    }

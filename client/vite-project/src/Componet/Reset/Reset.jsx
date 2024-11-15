@@ -44,7 +44,7 @@ function Reset() {
 
             if (response.status === 200) {
                 alert("Your password reset was successful");
-                navigate('/Lodin')
+                navigate('/Login')
             }
         } catch (error) {
             console.error("Error:", error);
