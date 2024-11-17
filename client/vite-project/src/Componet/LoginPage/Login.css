@@ -1,11 +1,26 @@
-*{
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.loginContainer {
+  background-image: linear-gradient( rgba(255,0,0,0), rgb(0, 0, 0)), url('/images/login_background3.jpg');
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+
+
+
+/* *{
     margin: 0px;
     padding: 0px;
 }
 .loginContainer {
   background-image: linear-gradient( rgba(255,0,0,0), rgb(0, 0, 0)), url('/images/login_background3.jpg');
   height: 100vh;
-  /* opacity: .6; */
+  /* opacity: .6; 
   background-size: cover;
   background-position: center;
  
@@ -93,7 +108,7 @@
 }
 ::placeholder {
   color: rgb(255, 255, 255);
-  opacity: 1; /* Firefox */
+  opacity: 1; /* Firefox 
 }
 .bttn2{
   width: 101px;
@@ -111,7 +126,7 @@ a:hover{
 .login-amico{
   padding: 28px 70px 0px 350px; ;
   border-left: 1px solid #868686;
-  /* box-shadow: 10px 10px 5px 12px lightblue; */
+  /* box-shadow: 10px 10px 5px 12px lightblue; 
 }
 
 .logintextContainer{
@@ -128,4 +143,4 @@ a:hover{
   color: rgb(186, 186, 186);
   font-weight: 900;
   letter-spacing: 20px;
-}
+} */

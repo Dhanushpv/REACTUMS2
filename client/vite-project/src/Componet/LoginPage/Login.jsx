@@ -1,7 +1,7 @@
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import styles from '';
-
+// import login_background3 from '/images/login_background3.jpg';
 
 
 function Login() {
@@ -36,14 +36,14 @@ function Login() {
       });
       console.log('response', response);
 
-      let parsed_Response = await response.json()
-      console.log("parsedRespoce : ", parsed_Response);
+      let parsed_Response = await response.json();
+      console.log("parsedResponse : ", parsed_Response);
 
       let token_data = parsed_Response.data;
       console.log("token_data : ", token_data);
 
       let user_type = token_data.user_type.user_type;
-      console.log("usertype", user_type)  // Ensure user_type exists properly
+      console.log("usertype", user_type);  // Ensure user_type exists properly
       let token = token_data.token;
       let id = token_data.id;
       console.log("id", id);
@@ -52,8 +52,6 @@ function Login() {
       let token_key = id;
       localStorage.setItem(token_key, token);
       console.log("token_key", token_key);
-
-
 
       if (response.ok) {
         let loginCountKey = `${id}_login_count`;
@@ -82,8 +80,7 @@ function Login() {
         }
 
       } else {
-
-        console.log('Login failed:', errorResult.message);
+        console.log('Login failed:', parsed_Response.message);
       }
 
     } catch (error) {
@@ -97,135 +94,92 @@ function Login() {
 
   return (
     <>
-      <div className="loginContainer " >
-        <div className='position-absolute top-50 start-0 translate-middle-y text-white'><span className='logintextContainer'>Welcome back!</span> <br /> <span className='logintextContainer2'>Ready to dive in</span></div>
-        {/* <div>
-          <nav className="p-2">
-            <div className="d-flex justify-content-between align-items-center">
-              <div>
-                <img
-                  src="https://img.icons8.com/?size=100&id=oROcPah5ues6&format=png&color=000000"
-                  style={{ width: 70, height: 70 }}
-                  alt="UMS logo"
-                />
-                <span className="fs-3 text-center fw-bold text-white p-2">UMS</span>
-              </div>
-              <div>
-                <span className="px-4">
-                  <a className="text-decoration-none text-white fs-6" href="">
-                    Home
-                  </a>
-                </span>
-                <span className="px-4">
-                  <a className="text-decoration-none text-white fs-6" href="">
-                    File
-                  </a>
-                </span>
-                <span className="px-4">
-                  <a className="text-decoration-none text-white fs-6" href="">
-                    About
-                  </a>
-                </span>
-                <span className="px-4">
-                  <a className="text-decoration-none text-white fs-6" href="">
-                    Contact
-                  </a>
-                </span>
-                <button className="bttn2">SIGN IN</button>
-                <span className="px-4">
-                  <img
-                    src="https://img.icons8.com/?size=100&id=STOBCZbtLToI&format=png&color=000000"
-                    style={{ width: 50, height: 50 }}
-                    alt="User icon"
-                  />
-                </span>
-              </div>
-            </div>
-          </nav>
-        </div> */}
+      <div className="bg-center bg-cover bg-no-repeat bg-[url('/images/login_background3.jpg')] loginContainer ">
+        <div>
+          <div className='position-absolute top-50 start-0 translate-middle-y text-white pl-20	'>
+            <span className='text-7xl'>Welcome back!</span> <br />
+            <span className='text-7xl tracking-tight hover:tracking-wide'>Ready to dive in</span>
+          </div>
 
-        <div className=''>
-          <div className='formContainer position-absolute top-50 end-0 translate-middle '>
-            <form
-              onSubmit={handleSubmit}
-              className="px-5 border formSubcontainer"
-            >
-              <h1 className="fw-bold text-center pt-5">
-                <i
-                  className="fa fa-user-circle-o"
-                  style={{ fontSize: 100, color: 'whitesmoke', opacity: .8 }}
-                />
-              </h1>
-              <div className="pt-5">
-                <div>
+          <div className=''>
+            <div className='formContainer position-absolute top-50 end-0 translate-middle backdrop-invert-0 bg-black/40  rounded-bl-3xl rounded-tr-3xl rounded-tl-3xl rounded-br-3xl border-solid border-2 border-stone-300 '>
+              <form
+                onSubmit={handleSubmit}
+                className="px-5 formSubcontainer "
+              >
+                <h1 className="fw-bold text-center pt-5">
                   <i
-                    className="fa fa-envelope px-2 pt-1 text-center position-absolute"
-                    style={{ fontSize: 25, color: "whitesmoke", margin: 4 }}
+                    className="fa fa-user-circle-o"
+                    style={{ fontSize: 100, color: 'whitesmoke', opacity: .8 }}
                   />
+                </h1>
+                <div className="pt-5">
+                  <div>
+                    <i
+                      className="fa fa-envelope px-2 pt-1 text-center position-absolute"
+                      style={{ fontSize: 25, color: "whitesmoke", margin: 4 }}
+                    />
+                    <input
+                      type="email"
+                      className="p-2 input_box w-80"
+                      name="email"
+                      style={{ textAlign: "center" }}
+                      placeholder="Email"
+                      id="email"
+                      value={email} // Controlled input value
+                      onChange={(e) => setEmail(e.target.value)} // Update state
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="pt-5">
+                  <div style={{ position: 'relative' }}>
+                    <i
+                      className="fa fa-lock px-2 pt-1 text-center position-absolute"
+                      style={{ fontSize: 25, color: 'whitesmoke', margin: 5 }}
+                    />
+                    <input
+                      type={isPasswordVisible ? 'text' : 'password'} // Toggle input type
+                      className="p-2 input_box w-80"
+                      name="password"
+                      style={{ textAlign: 'center' }}
+                      placeholder="Password"
+                      id="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                    {/* Eye icon for toggling visibility */}
+                    <i
+                      onClick={togglePasswordVisibility}
+                      className={`fa ${isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'} position-absolute`}
+                      style={{ top: '50%', right: 10, cursor: 'pointer', transform: 'translateY(-50%)', fontSize: 25, color: 'whitesmoke' }}
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-5 pb-5 text-center">
                   <input
-                    type="email"
-                    className="p-2 input_box"
-                    name="email"
-                    style={{ textAlign: "center" }}
-                    placeholder="Email"
-                    id="email"
-                    value={email} // Controlled input value
-                    onChange={(e) => setEmail(e.target.value)} // Update state
-                    required
+                    type="submit"
+                    className="custom-btn btn-2"
+                    value="LOGIN"
                   />
                 </div>
-              </div>
-              <div className="pt-5">
-                <div style={{ position: 'relative' }}>
-                  <i
-                    className="fa fa-lock px-2 pt-1 text-center position-absolute"
-                    style={{ fontSize: 25, color: 'whitesmoke', margin: 5 }}
-                  />
-                  <input
-                    type={isPasswordVisible ? 'text' : 'password'} // Toggle input type
-                    className="p-2 input_box"
-                    name="password"
-                    style={{ textAlign: 'center' }}
-                    placeholder="Password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                  {/* Eye icon for toggling visibility */}
-                  <i
-                    onClick={togglePasswordVisibility}
-                    className={`fa ${isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'} position-absolute`}
-                    style={{ top: '50%', right: 10, cursor: 'pointer', transform: 'translateY(-50%)', fontSize: 25, color: 'whitesmoke' }}
-                  />
+                <div className="d-flex">
+                  <div className="fs-6 px-4 ">
+                    <input type="checkbox"  />
+                    <span className='text-white' >Remember me</span> 
+                  </div>
+                  <div className="pb-5">
+                    <span onClick={forgotPassword} style={{ cursor: 'pointer', color: 'blue' }}>
+                      Forgot password?
+                    </span>
+                  </div>
                 </div>
-              </div>
-            
-              <div className="pt-5 pb-5 text-center">
-                <input
-                  type="submit"
-                  className="custom-btn btn-2 "
-                  value="LOGIN"
-                />
-              </div>
-              <div className="d-flex">
-                <div className="fs-6 px-4">
-                  <input type="checkbox" />
-                  Remember me
-                </div>
-                <div className="pb-5">
-                  <span onClick={forgotPassword} style={{ cursor: 'pointer', color: 'blue' }}>
-                    Forgot password?
-                  </span>
-                </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
-        {/* <h1 className='text-3xl font-bold text-red-500'>wellcome</h1> */}
-
-      
-
       </div>
     </>
   );
